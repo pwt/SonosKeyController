@@ -1,5 +1,3 @@
-# Work in Progress
-
 # SonosKeyController
 
 This is a small Python script that waits for keyboard input at the console. Keyboard inputs trigger calls to the Sonos HTTP API [1], which controls various Sonos functions.
