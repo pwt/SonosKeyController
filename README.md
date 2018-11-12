@@ -2,7 +2,7 @@
 
 # SonosKeyController
 
-This is a small Python script that waits for keyboard input at the console. Key-presses trigger calls to the Sonos HTTP API [1], which needs to be installed and running somewhere on the local network.
+This is a small Python script that waits for keyboard input at the console. Keyboard inputs trigger calls to the Sonos HTTP API [1], which controls various Sonos functions.
 
 The script is especially useful with a **FLIRC** [2], a USB dongle that is programmed to recognise infrared (IR) codes from arbitrary IR remotes, and then translates them into keyboard key-presses. Using the script with a FLIRC enables IR control of Sonos systems.
 
@@ -18,7 +18,7 @@ The script is tested on Linux but includes **untested** support for Windows.
 
 ## Usage
 
-The script needs to be edited for your needs, where indicated within the script. I will move the configuration data out into a separate file in future iterations of the script.
+The file `config.py` needs to be edited for your needs. See the steps within the file. The script is run using `python sonoskeycontroller.py`.
 
 ## Links
 [1] https://github.com/jishi/node-sonos-http-api \
