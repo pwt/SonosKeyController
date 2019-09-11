@@ -6,13 +6,14 @@
 
 room = 'front%20reception'
 
-# 2. Set up the hostname or IP address of the system running the Sonos HTTP API
+# 2. Set up the hostname or IP address of the system running the Sonos HTTP API, and the port
 #    Can be 'localhost'
 
 sonos_api_host = '192.168.0.36'
+sonos_api_port = '5005'
 
 # Assemble the root URL to use for SONOS HTTP API Requests
-base_url = 'http://' + sonos_api_host + ':5005/' + room
+base_url = 'http://' + sonos_api_host + ':' + sonos_api_port + '/' + room
 
 # 3. Define the Command Matrix.
 #    This maps key-presses to HTTP command URLs. Follow the pattern below to map keyboard inputs (the key on the left)
