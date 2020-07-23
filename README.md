@@ -1,14 +1,16 @@
 # SonosKeyController
 
-This is a small Python script that waits for keyboard input at the console. Keyboard inputs trigger calls to the Sonos HTTP API [1], which controls various Sonos functions.
+*Note: Previous versions of this script used the Sonos HTTP API instead of soco-cli. The move to soco-cli makes the script self-contained.*
+
+This is a small Python script that waits for keyboard input at the console. Keyboard inputs trigger calls to **soco-cli** [1], which is a command line utility for controlling various Sonos functions.
 
 The script is especially useful with a **FLIRC** [2], a USB dongle that is programmed to recognise infrared (IR) codes from arbitrary IR remotes, and then translate them into keyboard key-presses. Using the script with a FLIRC enables IR control of Sonos systems.
 
-The script can also be used with anything else that presents as a keyboard connected directly to the computer on which the script is running. Note that since the script runs as a console program, it's only really suitable for running on headless hosts. I run it on a Raspberry Pi near the Sonos Connect that it controls.
+The script can also be used with anything else that presents as a keyboard connected directly to the computer on which the script is running. Note that since the script runs as a console program, it's only really suitable for running on headless hosts. I run it on a Raspberry Pi near the Sonos Port that it controls.
 
 ## Requirements
 
-A working Python environment running on a suitable host, and a working installation of Sonos HTTP API [1] running either on the same host or elsewhere on the local network. The script should work under Python 2.x or 3.x.
+A working Python 3.5+ environment running on a suitable host, with the **soco-cli** package installed (use PyPi).
 
 The script is intended to run as a console program in order to accept keyboard input from a directly attached keyboard, FLIRC, etc.
 
@@ -18,6 +20,10 @@ The script is tested on Linux but includes **untested** support for Windows.
 
 The file `config.py` needs to be edited for your needs. See the steps within the file. The script is run using `python sonoskeycontroller.py`.
 
+## Support
+
+Just raise a GitHub issue if you'd like help with anything. I'll respond as promptly as I can.
+
 ## Links
-[1] https://github.com/jishi/node-sonos-http-api \
+[1] https://github.com/avantrec/soco-cli \
 [2] https://flirc.tv/more/flirc-usb

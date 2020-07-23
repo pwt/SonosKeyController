@@ -1,41 +1,34 @@
 # Configuration Section #############################################
 
-# 1. Set up the Room Name(s)
-#    These must exactly match the room name(s) in your Sonos system.
-#    Use '%20' for spaces; similarly encode other 'unsafe' URL characters
+# STEP 1. Specify the Room Name
+#         This must exactly match the room name in your Sonos system.
 
-room = 'front%20reception'
+room = "Front Reception"  # The target Sonos Room/Zone
+options = "-l"  # Options to pass to the 'sonos' command
 
-# 2. Set up the hostname or IP address of the system running the Sonos HTTP API, and the port
-#    Can be 'localhost'
+# STEP 2. Define the Command Mappings.
+#         This maps key-presses to commands. Follow the pattern below to map your choice of
+#         keyboard inputs (the dictionary key on the left) to the 'sonos' commands used.
+#         Extend or reduce the number of command lines as required.
+#         (Inspect the soco-cli documentation for available commands.)
 
-sonos_api_host = '192.168.0.36'
-sonos_api_port = '5005'
-
-# Assemble the root URL to use for SONOS HTTP API Requests
-base_url = 'http://' + sonos_api_host + ':' + sonos_api_port + '/' + room
-
-# 3. Define the Command Matrix.
-#    This maps key-presses to HTTP command URLs. Follow the pattern below to map keyboard inputs (the key on the left)
-#    to the URLs to called in response. Extend or reduce the number of command lines as required.
-#    Encode unsafe URL characters
-#    Inspect the SONOS HTTP API documentation for available commands
-
-commands = {'r':  ('PLAY', base_url + '/play'),
-            'f':  ('PAUSE', base_url + '/pause'),
-            'x':  ('STOP', base_url + '/pause'),
-            '\'': ('OFF', base_url + '/pause'),
-            '.':  ('NEXT', base_url + '/next'),
-            '0':  ('ZERO', base_url + '/favorite/Radio%20Paradise'),  # Plays favourite 'Radio Paradise'
-            '1':  ('ONE', base_url + '/favorite/Jazz24%20-%20KNKX-HD2'),
-            '2':  ('TWO', base_url + '/favorite/BBC%20Radio%202'),
-            '3':  ('THREE', base_url + '/favorite/BBC%20Radio%203'),
-            '4':  ('FOUR', base_url + '/favorite/BBC%20Radio%204'),
-            '5':  ('FIVE', base_url + '/favorite/Classic%20FM'),
-            '6':  ('SIX', base_url + '/favorite/BBC%20Radio%206%20Music'),
-            '=':  ('VOLUME_UP', base_url + '/volume/+10'),
-            '-':  ('VOLUME_DOWN', base_url + '/volume/-10'),
-            ',':  ('PREVIOUS', base_url + '/previous')
-            }
+commands = {
+    "r": ("PLAY", options, room, "play"),
+    "f": ("PAUSE", options, room, "pause"),
+    "x": ("STOP", options, room, "pause"),
+    "'": ("OFF", options, room, "pause"),
+    ".": ("NEXT", options, room, "next"),
+    "0": ("ZERO", options, room, "play_fav 'RP World/etc'"),
+    "1": ("ONE", options, room, "play_fav 'Jazz24'"),
+    "2": ("TWO", options, room, "play_fav 'BBC Radio 2'"),
+    "3": ("THREE", options, room, "play_fav 'BBC Radio 3'"),
+    "4": ("FOUR", options, room, "play_fav 'BBC Radio 4'"),
+    "5": ("FIVE", options, room, "play_fav 'Classic FM'"),
+    "6": ("SIX", options, room, "play_fav 'BBC Radio 6'"),
+    "9": ("NINE", "-lr", room, "vol"),
+    "=": ("VOLUME_UP", options, room, "rv 10"),
+    "-": ("VOLUME_DOWN", options, room, "rv -10"),
+    ",": ("PREVIOUS", options, room, "previous"),
+}
 
 # End Configuration Section #########################################
