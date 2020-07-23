@@ -1,5 +1,5 @@
 # SonosKeyController script. Converts key-presses into
-# requests to the SONOS HTTP API.
+# soco-cli commands.
 
 import datetime
 import os
