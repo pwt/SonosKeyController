@@ -5,9 +5,12 @@ import datetime
 import os
 import sys
 import signal
+import soco
 
 # Pull in the configuration from your config.py
 from config import commands
+from config import speaker_ip
+from config import room_name
 
 
 # Wait for a keypress and return
@@ -41,22 +44,50 @@ def sigint_handler(signum, frame):
     exit(0)
 
 
+def play_favourite(speaker, favourite):
+    fs = speaker.music_library.get_sonos_favorites(complete_result=True)
+    the_fav = None
+    # Strict match
+    for f in fs:
+        if favourite == f.title:
+            the_fav = f
+            break
+    # Fuzzy match
+    if not the_fav:
+        favourite = favourite.lower()
+        for f in fs:
+            if favourite in f.title.lower():
+                the_fav = f
+                break
+    if the_fav:
+        # play_uri works for most favourites
+        try:
+            uri = the_fav.get_uri()
+            metadata = the_fav.resource_meta_data
+            speaker.play_uri(uri=uri, meta=metadata)
+            return True
+        except Exception:
+            return False
+    else:
+        return False
+
+
+
+
 # Catch CTL-C
 signal.signal(signal.SIGINT, sigint_handler)
 
-# Print config
-print("")
-for code in commands:
-    # print(code + ' ' + commands[code][0] + " : " + commands[code][1])
-    print(
-        "Keycode: {} = {}".format(
-            code,
-            "sonos {} '{}' {}".format(
-                commands[code][1], commands[code][2], commands[code][3]
-            ),
-        )
-    )
-print("\nWaiting for input ... use CTL-C to quit")
+# Create the SoCo speaker object
+if speaker_ip:
+    speaker = soco.SoCo(speaker_ip)
+else:
+    speaker = soco.discovery.by_name(room_name)
+
+if not speaker:
+    print("Speaker not found ... exiting")
+    exit(0)
+
+print("Waiting for input ... use CTL-C to quit")
 
 # Input loop
 while True:
@@ -64,11 +95,31 @@ while True:
     timestamp = str(datetime.datetime.now())[:-7]
     if code in commands:
         try:
-            command = "sonos {} '{}' {}".format(
-                commands[code][1], commands[code][2], commands[code][3]
-            )
-            print("{}: Command: {}".format(timestamp, command))
-            os.system(command)
+            command = commands[code]
+            action = command[1]
+            if action == "play":
+                speaker.play()
+                msg = command[0]
+            elif action in ["pause", "stop", "off"]:
+                speaker.pause()
+                msg = command[0]
+            elif action == "next":
+                speaker.next()
+                msg = command[0]
+            elif action == "previous":
+                speaker.previous()
+                msg = command[0]
+            elif action == "relative_volume":
+                vol_change = int(command[2])
+                speaker.set_relative_volume(vol_change)
+                msg = command[0] + " " + str(vol_change)
+            elif action == "favourite":
+                fav = command[2]
+                if play_favourite(speaker, fav):
+                    msg = command[0] + ": " + fav
+                else:
+                    msg = command[0] + ": Could not play " + fav
+            print("{}: {}".format(timestamp, msg))
         except Exception as error:
             # Catch any other exceptions to keep running
             print("{}: Exception caught: {}".format(timestamp, error))
