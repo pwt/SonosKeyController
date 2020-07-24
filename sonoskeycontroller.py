@@ -72,10 +72,9 @@ def play_favourite(speaker, favourite):
         return False
 
 
-
-
 # Catch CTL-C
 signal.signal(signal.SIGINT, sigint_handler)
+
 
 # Create the SoCo speaker object
 if speaker_ip:
