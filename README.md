@@ -24,6 +24,43 @@ The file `config.py` needs to be edited for your needs. See the steps within the
 
 Just raise a GitHub issue if you'd like help with anything. I'll respond as promptly as I can.
 
+## Automatic Startup (Linux)
+
+In order to start the program automatically on reboot, it's useful to:
+
+#1 Be able to log in a special user automatically at the console. Note: this should not be any of the normal users, but a user specifically created for Sonos control purposes.
+
+#2 Have the console session detected, in order to start the program in the console case only.
+
+### Logging in automatically
+
+For `systemd` based systems:
+
+```
+sudo touch /etc/systemd/system/getty@.service.d/customexec.conf
+```
+
+Then edit the file to add the following section (replace 'sonos_user' with your required user name):
+
+```
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --noclear --autologin sonos_user %I $TERM
+```
+
+This will automatically login 'sonos_user' at the console on every reboot.
+
+### Starting `sonoskeycontroller` for the console sesssion only
+
+In `.bashrc` (or the equivalent for your shell if you're not using bash), add the following at the end.
+
+```
+case $(tty) in /dev/tty[0-9]*)
+    echo "Console Detected"
+    python sonoskeycontroller.py
+esac
+```
+
 ## Links
 [1] https://github.com/avantrec/soco-cli \
 [2] https://flirc.tv/more/flirc-usb
