@@ -34,7 +34,7 @@ In order to start the program automatically on reboot, it's useful to:
 
 ### Logging in automatically
 
-For `systemd` based systems:
+For `systemd` based systems: create the following file if it doesn't exist:
 
 ```
 sudo touch /etc/systemd/system/getty@.service.d/customexec.conf
@@ -50,7 +50,7 @@ ExecStart=-/sbin/agetty --noclear --autologin sonos_user %I $TERM
 
 This will automatically login 'sonos_user' at the console on every reboot.
 
-### Starting `sonoskeycontroller` for the console sesssion only
+### Starting sonoskeycontroller for the console sesssion only
 
 In `.bashrc` (or the equivalent for your shell if you're not using bash), add the following at the end.
 
