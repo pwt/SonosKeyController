@@ -2,7 +2,7 @@
 
 *Note: Previous versions of this script used the Sonos HTTP API instead of using built-in SoCo commands. The move to using SoCo directly makes the script self-contained.*
 
-This is a small Python script that waits for keyboard input at the console. Keyboard inputs trigger SoCo calls [1], a Python library for controlling Sonos systems.
+This is a small Python script that waits for keyboard input at the console. Keyboard inputs trigger commands to a selected Sonos speaker using SoCo [1], a Python library for controlling Sonos systems.
 
 The script is especially useful with a **FLIRC** [2], a USB dongle that is programmed to recognise infrared (IR) codes from arbitrary IR remotes, and then translate them into keyboard key-presses. Using the script with a FLIRC enables IR control of Sonos systems.
 
@@ -24,9 +24,9 @@ The file `config.py` needs to be edited for your needs. See the steps within the
 
 In order to start the program automatically on reboot, it's useful to:
 
-#1 Be able to log in a special user automatically at the console. Note: this should not be any of the normal users, but a user specifically created for Sonos control purposes.
+1. Log in a special user automatically at the console. Note: for security reasons, this should not be any of the normal users, but a user specifically created for Sonos control purposes.
 
-#2 Have the console session detected, in order to start the program in the console case only.
+2. Have the console session detected, in order to start the program in the console case only, and avoid it being started during (e.g.) normal SSH sessions.
 
 ### Logging in automatically
 
