@@ -2,7 +2,7 @@
 
 *Note: Previous versions of this script used the Sonos HTTP API instead of soco-cli. The move to soco-cli makes the script self-contained.*
 
-This is a small Python script that waits for keyboard input at the console. Keyboard inputs trigger calls to **soco-cli** [1], which is a command line utility for controlling various Sonos functions.
+This is a small Python script that waits for keyboard input at the console. Keyboard inputs trigger invocations of **soco-cli** [1], which is a command line utility for controlling various Sonos functions.
 
 The script is especially useful with a **FLIRC** [2], a USB dongle that is programmed to recognise infrared (IR) codes from arbitrary IR remotes, and then translate them into keyboard key-presses. Using the script with a FLIRC enables IR control of Sonos systems.
 
@@ -19,10 +19,6 @@ The script is tested on Linux but includes **untested** support for Windows.
 ## Usage
 
 The file `config.py` needs to be edited for your needs. See the steps within the file. The script is run using `python sonoskeycontroller.py`.
-
-## Support
-
-Just raise a GitHub issue if you'd like help with anything. I'll respond as promptly as I can.
 
 ## Automatic Startup (Linux)
 
@@ -60,6 +56,12 @@ case $(tty) in /dev/tty[0-9]*)
     python sonoskeycontroller.py
 esac
 ```
+
+Adjust the `python` command to suit your installation.
+
+## Support
+
+Just raise a GitHub issue if you'd like help with anything. I'll respond as promptly as I can.
 
 ## Links
 [1] https://github.com/avantrec/soco-cli \
