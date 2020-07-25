@@ -21,6 +21,8 @@ commands = {
     "'": ("OFF", "pause"),
     ",": ("PREVIOUS", "previous"),
     ".": ("NEXT", "next"),
+    "=": ("VOLUME_UP", "relative_volume", 5),
+    "-": ("VOLUME_DOWN", "relative_volume", -5),
     "0": ("FAVOURITE ZERO", "favourite", "RP World/etc"),
     "1": ("FAVOURITE ONE", "favourite", "Jazz24"),
     "2": ("FAVOURITE TWO", "favourite", "BBC Radio 2"),
@@ -28,8 +30,9 @@ commands = {
     "4": ("FAVOURITE FOUR", "favourite", "BBC Radio 4"),
     "5": ("FAVOURITE FIVE", "favourite", "Classic FM"),
     "6": ("FAVOURITE SIX", "favourite", "BBC Radio 6"),
-    "=": ("VOLUME_UP", "relative_volume", 5),
-    "-": ("VOLUME_DOWN", "relative_volume", -5),
+    "7": ("FAVOURITE SEVEN", "favourite", "Scala"),
+    "8": ("FAVOURITE EIGHT", "favourite", "Times Radio"),
+    "9": ("FAVOURITE NINE", "favourite", "World Service"),
 }
 
 # End Configuration Section #########################################
