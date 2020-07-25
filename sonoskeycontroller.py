@@ -85,6 +85,8 @@ else:
 if not speaker:
     print("Speaker not found ... exiting")
     exit(0)
+else:
+    print("Sending commands to speaker '{}'".format(speaker.player_name))
 
 print("Waiting for input ... use CTL-C to quit")
 
