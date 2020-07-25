@@ -15,6 +15,8 @@ speaker_ip = "192.168.0.35"
 #         Extend or reduce the number of command lines as required.
 
 commands = {
+    # Format:
+    # "Keystroke": ("DESCRIPTIVE TITLE", "Action", "Arguments"),
     "r": ("PLAY", "play"),
     "f": ("PAUSE", "pause"),
     "x": ("STOP", "pause"),
