@@ -49,7 +49,7 @@ This will automatically login 'sonos_user' at the console on every reboot.
 
 ### Starting sonoskeycontroller for the console sesssion only
 
-In `.bashrc` (or the equivalent for your shell if you're not using bash), add the following at the end.
+In `.bashrc` for the 'sonos_user' (or the equivalent for your shell if you're not using bash), add the following at the end.
 
 ```
 case $(tty) in /dev/tty[0-9]*)
