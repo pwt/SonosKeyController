@@ -33,6 +33,7 @@ In order to start the program automatically on reboot, it's useful to:
 For `systemd` based systems: create the following file if it doesn't exist:
 
 ```
+sudo mkdir -p /etc/systemd/system/getty@.service.d
 sudo touch /etc/systemd/system/getty@.service.d/customexec.conf
 ```
 
