@@ -1,5 +1,5 @@
 # SonosKeyController script. Converts key-presses into
-# soco-cli commands.
+# SoCo commands.
 
 import datetime
 import os
@@ -15,7 +15,7 @@ from config import room_name
 
 # Wait for a keypress and return
 def wait_for_keypress():
-    # Wait for a key press on the console and return it.
+    # Wait for a key press on the console and return it
     result = None
     if os.name == "nt":  # Windows (UNTESTED)
         import msvcrt
