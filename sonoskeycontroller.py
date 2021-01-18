@@ -74,18 +74,37 @@ def play_favourite(speaker, favourite):
         return False
 
 
-def print_queue(speaker):
+def queue(speaker):
     soco_cli_command = "sonos " + speaker.ip_address + " queue"
     print(subprocess.getoutput(soco_cli_command))
+    while True:
+        try:
+            queue_number = int(input("Enter queue number to play, or 0 to cancel: "))
+            break
+        except ValueError:
+            print("Error: integer required")
+    if queue_number < 1:
+        return
+    try:
+        speaker.play_from_queue(queue_number - 1, start=True)
+    except Exception as error:
+        print("Error: {}".format(error))
 
 
 def favourites(speaker):
     soco_cli_command = "sonos " + speaker.ip_address + " lf"
     print(subprocess.getoutput(soco_cli_command))
-    fav_number = input("Enter favourite number, or 0 to cancel: ")
+    while True:
+        try:
+            fav_number = int(input("Enter queue number to play, or 0 to cancel: "))
+            break
+        except ValueError:
+            print("Error: integer required")
+    if fav_number < 1:
+        return
     favs = speaker.music_library.get_sonos_favorites(complete_result=True)
     try:
-        fav = favs[int(fav_number) - 1]
+        fav = favs[fav_number - 1]
         uri = fav.get_uri()
         metadata = fav.resource_meta_data
         speaker.play_uri(uri=uri, meta=metadata)
@@ -132,7 +151,7 @@ if __name__ == "__main__":
                     speaker.previous()
                     msg = command[0]
                 elif action == "queue":
-                    print_queue(speaker)
+                    queue(speaker)
                     msg = command[0]
                 elif action == "favs":
                     favourites(speaker)
