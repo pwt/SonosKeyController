@@ -21,6 +21,7 @@ commands = {
     "f": ("PAUSE", "pause"),
     "x": ("STOP", "pause"),
     "q": ("PRINT QUEUE", "queue"),
+    "v": ("FAVOURITES", "favs"),
     "'": ("OFF", "pause"),
     ",": ("PREVIOUS", "previous"),
     ".": ("NEXT", "next"),

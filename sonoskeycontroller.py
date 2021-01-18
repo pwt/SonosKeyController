@@ -67,7 +67,8 @@ def play_favourite(speaker, favourite):
             metadata = the_fav.resource_meta_data
             speaker.play_uri(uri=uri, meta=metadata)
             return True
-        except Exception:
+        except Exception as error:
+            print("Error: {}".format(error))
             return False
     else:
         return False
@@ -76,6 +77,20 @@ def play_favourite(speaker, favourite):
 def print_queue(speaker):
     soco_cli_command = "sonos " + speaker.ip_address + " queue"
     print(subprocess.getoutput(soco_cli_command))
+
+
+def favourites(speaker):
+    soco_cli_command = "sonos " + speaker.ip_address + " lf"
+    print(subprocess.getoutput(soco_cli_command))
+    fav_number = input("Enter favourite number, or 0 to cancel: ")
+    favs = speaker.music_library.get_sonos_favorites(complete_result=True)
+    try:
+        fav = favs[int(fav_number) - 1]
+        uri = fav.get_uri()
+        metadata = fav.resource_meta_data
+        speaker.play_uri(uri=uri, meta=metadata)
+    except Exception as error:
+        print("Error: {}".format(error))
 
 
 if __name__ == "__main__":
@@ -118,6 +133,9 @@ if __name__ == "__main__":
                     msg = command[0]
                 elif action == "queue":
                     print_queue(speaker)
+                    msg = command[0]
+                elif action == "favs":
+                    favourites(speaker)
                     msg = command[0]
                 elif action == "relative_volume":
                     vol_change = int(command[2])
