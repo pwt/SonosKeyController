@@ -6,6 +6,7 @@ import os
 import sys
 import signal
 import soco
+import subprocess
 
 # Pull in the configuration from your config.py
 from config import commands
@@ -72,6 +73,11 @@ def play_favourite(speaker, favourite):
         return False
 
 
+def print_queue(speaker):
+    command = "sonos " + speaker.ip_address + " queue"
+    print(subprocess.getoutput(command))
+
+
 # Catch CTL-C
 signal.signal(signal.SIGINT, sigint_handler)
 
@@ -109,6 +115,9 @@ while True:
                 msg = command[0]
             elif action == "previous":
                 speaker.previous()
+                msg = command[0]
+            elif action == "queue":
+                print_queue(speaker)
                 msg = command[0]
             elif action == "relative_volume":
                 vol_change = int(command[2])

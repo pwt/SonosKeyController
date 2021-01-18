@@ -20,6 +20,7 @@ commands = {
     "r": ("PLAY", "play"),
     "f": ("PAUSE", "pause"),
     "x": ("STOP", "pause"),
+    "q": ("PRINT QUEUE", "queue"),
     "'": ("OFF", "pause"),
     ",": ("PREVIOUS", "previous"),
     ".": ("NEXT", "next"),
