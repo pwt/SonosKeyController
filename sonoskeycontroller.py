@@ -6,7 +6,8 @@ import os
 import sys
 import signal
 import soco
-import subprocess
+
+from soco_cli import api
 
 # Pull in the configuration from your config.py
 from config import commands
@@ -75,8 +76,8 @@ def play_favourite(speaker, favourite):
 
 
 def queue(speaker):
-    soco_cli_command = "sonos " + speaker.ip_address + " queue"
-    print(subprocess.getoutput(soco_cli_command))
+    exit_code, output, error = api.run_command(speaker.ip_address, "queue", [])
+    print(output)
     while True:
         try:
             queue_number = int(input("Enter queue number to play, or 0 to cancel: "))
@@ -92,8 +93,8 @@ def queue(speaker):
 
 
 def favourites(speaker):
-    soco_cli_command = "sonos " + speaker.ip_address + " lf"
-    print(subprocess.getoutput(soco_cli_command))
+    exit_code, output, error = api.run_command(speaker.ip_address, "lf", [])
+    print(output)
     while True:
         try:
             fav_number = int(input("Enter queue number to play, or 0 to cancel: "))
@@ -113,6 +114,7 @@ def favourites(speaker):
 
 
 if __name__ == "__main__":
+
     # Catch CTL-C
     signal.signal(signal.SIGINT, sigint_handler)
 
