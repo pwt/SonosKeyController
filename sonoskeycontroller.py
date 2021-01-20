@@ -76,7 +76,7 @@ def play_favourite(speaker, favourite):
 
 
 def queue(speaker):
-    exit_code, output, error = api.run_command(speaker.ip_address, "queue", [])
+    exit_code, output, error_msg = api.run_command(speaker.ip_address, "queue")
     print(output)
     while True:
         try:
@@ -93,7 +93,7 @@ def queue(speaker):
 
 
 def favourites(speaker):
-    exit_code, output, error = api.run_command(speaker.ip_address, "lf", [])
+    exit_code, output, error_msg = api.run_command(speaker.ip_address, "lf")
     print(output)
     while True:
         try:
@@ -174,4 +174,6 @@ if __name__ == "__main__":
                 print("{}: Exception caught: {}".format(timestamp, error))
                 pass
         else:
-            print(timestamp + " : key = " + code + ": Unmapped ASCII = " + str(ord(code)))
+            print(
+                timestamp + " : key = " + code + ": Unmapped ASCII = " + str(ord(code))
+            )

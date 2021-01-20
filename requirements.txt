@@ -1,2 +1,2 @@
 soco
-soco-cli>=0.3.0
+soco-cli>=0.3.1
