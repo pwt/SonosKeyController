@@ -17,7 +17,6 @@ from config import room_name
 
 # Wait for a keypress and return
 def wait_for_keypress():
-    # Wait for a key press on the console and return it
     result = None
     if os.name == "nt":  # Windows (UNTESTED)
         import msvcrt
@@ -47,37 +46,15 @@ def sigint_handler(signum, frame):
 
 
 def play_favourite(speaker, favourite):
-    fs = speaker.music_library.get_sonos_favorites(complete_result=True)
-    the_fav = None
-    # Strict match
-    for f in fs:
-        if favourite == f.title:
-            the_fav = f
-            break
-    # Fuzzy match
-    if not the_fav:
-        favourite = favourite.lower()
-        for f in fs:
-            if favourite in f.title.lower():
-                the_fav = f
-                break
-    if the_fav:
-        # play_uri works for most favourites
-        try:
-            uri = the_fav.get_uri()
-            metadata = the_fav.resource_meta_data
-            speaker.play_uri(uri=uri, meta=metadata)
-            return True
-        except Exception as error:
-            print("Error: {}".format(error))
-            return False
-    else:
-        return False
+    exit_code, output, error_msg = api.run_command(
+        speaker.ip_address, "play_fav", favourite
+    )
+    return False if exit_code else True
 
 
 def queue(speaker):
     exit_code, output, error_msg = api.run_command(speaker.ip_address, "queue")
-    print(output)
+    print(output, "\n")
     while True:
         try:
             queue_number = int(input("Enter queue number to play, or 0 to cancel: "))
@@ -94,23 +71,18 @@ def queue(speaker):
 
 def favourites(speaker):
     exit_code, output, error_msg = api.run_command(speaker.ip_address, "lf")
-    print(output)
+    print(output, "\n")
     while True:
-        try:
-            fav_number = int(input("Enter queue number to play, or 0 to cancel: "))
+        fav_number = input("Enter favourite number to play, or 0 to cancel: ")
+        if fav_number == "0":
             break
-        except ValueError:
-            print("Error: integer required")
-    if fav_number < 1:
-        return
-    favs = speaker.music_library.get_sonos_favorites(complete_result=True)
-    try:
-        fav = favs[fav_number - 1]
-        uri = fav.get_uri()
-        metadata = fav.resource_meta_data
-        speaker.play_uri(uri=uri, meta=metadata)
-    except Exception as error:
-        print("Error: {}".format(error))
+        exit_code, output, error_msg = api.run_command(
+            speaker.ip_address, "pfn", fav_number
+        )
+        if exit_code == 0:
+            break
+        else:
+            print(error_msg)
 
 
 if __name__ == "__main__":
