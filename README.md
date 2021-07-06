@@ -1,6 +1,23 @@
 # SonosKeyController
 
-*Note: Previous versions of this script used the Sonos HTTP API instead of using built-in SoCo commands. The move to using SoCo directly makes the script self-contained.*
+## Deprecation Notice
+
+The code in this repository is now **deprecated**, as everything can be more easily achieved with **[SoCo-CLI](https://github.com/avantrec/soco-cli)**. See the documentation for **single keystroke mode** and **aliases** in the SoCo-CLI interactive shell.
+
+Aliases are very flexible, support a huge set of SoCo-CLI actions, and allow for multi-action sequences, etc.
+
+**Brief Instructions**:
+
+After installing SoCo-CLI
+
+1. Set up the required single keystroke aliases, either directly in the interactive shell using the **`alias`** command, or by importing aliases from a file using the **`sonos --load_aliases`** command.
+2. Start SoCo-CLI in single keystroke mode: **`sonos --sk --interactive <speaker_name>`**.
+
+SoCo-CLI will then respond to single keystrokes by invoking the relevant aliased command. Usage has been tested on Linux, macOS, and Windows.
+
+The documentation below for **[automatic startup](#automatic-startup-linux)** (etc.) of SoCo-CLI under Linux still applies.
+
+## Documentation
 
 This is a small Python script that waits for keyboard input at the console. Keyboard inputs trigger commands to a selected Sonos speaker using SoCo [1], a Python library for controlling Sonos systems.
 
